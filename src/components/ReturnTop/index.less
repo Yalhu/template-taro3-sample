@@ -1,0 +1,25 @@
+.return_top {
+    width: 80px;
+    height: 80px;
+    font-size: 0;
+    text-indent: -9999em;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 6px 0 0 6px;
+    position: fixed;
+    right: 0;
+    bottom: 192px;
+    z-index: 101;
+    margin-bottom: constant(safe-area-inset-bottom);
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+  .return_top::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 80px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAFVBMVEUAAAD///////////////////////9Iz20EAAAABnRSTlMAEs64yCwYosRLAAAAf0lEQVQ4y+2LOw6AIBBEMUZrgyegsdY7eACPYCjm/kcQMhsTYLGxwcRp9vPmmdYzIs35RN6n26cKsXAVZYHXJeuxOF1xsKoUvghUVQwi1hSDyDUlkFLiB2wUSiSlxBvs5ApJLskFaaUKSS71skN6602GjRMc82GSkDA/+RhpLBdlCiXsyNDDDQAAAABJRU5ErkJggg==);
+    background-size: 50px;
+  }

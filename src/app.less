@@ -1,0 +1,80 @@
+/* 字体 */
+// @font-face {
+//     font-family: ;
+//     src: url();
+// }
+
+page,
+view,
+body {
+    font-family: PingFangSC-Regular;
+}
+
+page,
+body {
+    background: #f5f5f5;
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    -webkit-overflow-scrolling: touch;
+}
+
+page {
+    position: static !important;
+}
+
+:global {
+
+    // h5环境webview 占满一屏幕，为了显示导航 覆盖样式，
+    .taro-webview-H5 {
+        .taro-webview {
+            position: absolute !important;
+        }
+    }
+
+    .taro_router {
+        position: absolute;
+        left: 0;
+        top: 0;
+        min-height: auto;
+        z-index: 1;
+    }
+
+    .taro_page:first-child {
+        background-color: transparent !important;
+    }
+
+    .loading {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1100;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &::after :local {
+            content: "";
+            margin-top: calc(60px / 2);
+            height: calc(60px / 2);
+            width: 60px;
+            border: 6px solid rgba(250, 44, 25, 1);
+            border-top: 0;
+            border-radius: 0 0 calc(60px / 2) calc(60px / 2);
+            transform-origin: top center;
+            box-sizing: border-box;
+            animation: spin 1s linear infinite;
+        }
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}

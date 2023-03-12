@@ -1,0 +1,57 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "lib": [
+            "dom",
+            "esnext",
+        ],
+        "module": "commonjs",
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "noImplicitAny": false,
+        "allowSyntheticDefaultImports": true,
+        "outDir": "lib",
+        "noUnusedLocals": true,
+        // "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "useUnknownInCatchVariables": false,
+        "isolatedModules": true,
+        "noEmit": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        },
+        "rootDir": ".",
+        "jsx": "react-jsx",
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "typeRoots": [
+            "src/components/Recommend",
+            "src/utils",
+            "global.d.ts",
+            "node_modules/@types"
+        ]
+    },
+    // "include": [
+    //     // "src/**/*.ts",
+    //     "**/*.h5.*",
+    //     // "src/**/*.tsx",
+    // ],
+    "exclude": [
+        "**/-*",
+        "src/libs",
+        "src/mocks",
+        "test",
+        "node_modules",
+        "dist"
+    ],
+    // "compileOnSave": false
+}
