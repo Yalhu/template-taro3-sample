@@ -16,7 +16,7 @@ module.exports = {
         //         .loader('webpack-ssi-include-loader')
         //         .options({
         //             // localPath: path.resolve(__dirname, '../../m_static'),
-        //             location: 'https://trade.m.lorem.com/', // http url where the file can be dl
+        //             location: 'https://app.m.com/', // http url where the file can be dl
         //         });
         // },
         devServer: {
@@ -24,7 +24,7 @@ module.exports = {
             // server: "https",
             host: "127.0.0.1", // 本机ip会变
             allowedHosts: [
-                '.lorem.com'
+                '.m.com'
             ],
             port: 10086,
             hot: false, // > 为了 liveReload 能够生效，devServer.hot 配置项必须禁用或者 devServer.watchFiles 配置项必须启用
@@ -39,21 +39,13 @@ module.exports = {
             },
             proxy: {
                 //   "/client.action": {
-                //     target: "https://beta-api.m.lorem.com",
+                //     target: "https://beta-api.m.com",
                 //     changeOrigin: true,
                 //     headers: {
-                //       referer: "https://api.lorem.com",
-                //       Origin: "https://api.lorem.com"
+                //       referer: "https://api.m.com",
+                //       Origin: "https://api.m.com"
                 //     }
                 //   },
-                // "/webmonitor/collect/biz.json": {
-                //     target: "wq.lorem.com/webmonitor/collect/biz.json",
-                //     changeOrigin: true,
-                //     headers: {
-                //         referer: "https://api.lorem.com",
-                //         Origin: "https://api.lorem.com"
-                //     }
-                // }
             },
             // watchFiles: {
             //     paths: ["src/**/*", "src/*", "node_modules/@xx/recommend"],

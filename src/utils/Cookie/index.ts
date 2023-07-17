@@ -36,7 +36,6 @@ const getAll = async (): Promise<Record<string, string>> => {
 }
 
 const set = async (name: string, value: string, options?: { domain?: string; path?: string; secure?: boolean; expires?: number; }): Promise<void> => {
-    // const { domain = 'lorem.com', path = '/', secure = false, expires = 365 } = options || {};
     const { expires = 365 } = options || {};
     if (bridge.cookie?.set) {
         return bridge.cookie.set(name, value);

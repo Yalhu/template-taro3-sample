@@ -4,7 +4,7 @@
 interface Config {
     pay ? : {
         switch ? : {
-            /** 完成页地址 */
+            /** 页面地址 */
             doneUrl ? : string;
         }
     }

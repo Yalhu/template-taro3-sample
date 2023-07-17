@@ -30,7 +30,7 @@ const getAll = async (): Promise<Record<string, string>> => {
 }
 
 const set = async (name: string, value: string, options?: { domain?: string; path?: string; secure?: boolean; expires?: number; }): Promise<void> => {
-    const { domain = 'lorem.com', path = '/', secure = false, expires = 365 } = options || {};
+    const { domain = 'm.com', path = '/', secure = false, expires = 365 } = options || {};
     const expireDate = new Date(Date.now() + 1000 * 3600 * 24 * expires).toUTCString();
     document.cookie = `${name}=${encodeURIComponent(value)};expires=${expireDate}${path ? `;path=${path}` : ''}${domain ? `;domain=${domain}` : ''}${secure ? ';secure' : ''}`;
 }

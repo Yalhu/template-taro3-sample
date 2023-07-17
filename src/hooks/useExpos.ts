@@ -8,7 +8,6 @@ interface ExposObj {
 /*
  * 曝光埋点。
  *  在页面入口引入。
- * todo:
  * expType 上报类型：multi 批量上报 | 不传或者single 单点立即上报
  * expKey 唯一标识
  * expId 曝光id
@@ -18,7 +17,8 @@ interface ExposObj {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useExpos = (deps: Array<any> = []) => {
     // timerRef
-    // const timerRef = useRef<any>();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const timerRef = useRef<any>();
     // observer对象
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const obRef = useRef<any>();
@@ -115,12 +115,14 @@ const useExpos = (deps: Array<any> = []) => {
             }
         }
         if (process.env.TARO_ENV === "weapp") {
-            obRef.current = Taro.createIntersectionObserver(this as unknown as TaroGeneral.IAnyObject, {
-                observeAll: true
-            });
-            obRef.current
-                .relativeToViewport({ top: 10 })
-                .observe(".expo", requestIdle(observeCb));
+            timerRef.current = setTimeout(() => {
+                obRef.current = Taro.createIntersectionObserver(this as unknown as TaroGeneral.IAnyObject, {
+                    observeAll: true
+                });
+                obRef.current
+                    .relativeToViewport({ top: 10 })
+                    .observe(".expo", observeCb);
+            }, 0)
         } else {
             const options = {
                 root: null,
@@ -154,6 +156,7 @@ const useExpos = (deps: Array<any> = []) => {
         }
         return (() => {
             obRef.current?.disconnect()
+            timerRef.current && clearTimeout(timerRef.current);
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, deps);

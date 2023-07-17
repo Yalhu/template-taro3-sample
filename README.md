@@ -42,9 +42,10 @@ npm run build:h5-mstatic
 npm run dev:weapp-wxabuild
 ### 微信小程序部署
 npm run prod:weapp-wxabuild
-### 小程序 产物移到目标位置
-npm run prod:weapp-wxapp
 ```
+
+h5页面：https://app.m.lorem.com/taroapp/demo.shtml 
+代理配置： 127.0.0.1:10086 app.m.lorem.com/taroapp
 ### 打包配置
 #### 通用
 通过env建立不同的应用，比如buy，order，my，cart等。  

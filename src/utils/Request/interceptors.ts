@@ -1,6 +1,6 @@
 // import Taro from '@tarojs/taro';
 
-import { bizOperations, } from '@/common/js/api-strengthen'
+import { bizOperations, } from '@/consts/api-strengthen'
 import { ApiConfig } from "@/config";
 
 import { cookie, report, router, requestIdle } from "@/utils";
@@ -86,8 +86,9 @@ const responseInterceptor = function (chain) {
             if (errorCode === "302") {
                 if (!isDoLogin) {
                     isDoLogin = true;
-                    await doLogin();
+                    await doLogin(body.loginUrl);
                 }
+                throw Error(JSON.stringify(res));
             }
             return res.data
         })
@@ -103,53 +104,21 @@ const responseInterceptor = function (chain) {
 //     // console.log("umpParams:%s", umpParams);
 // }
 
-function getPageLink():string {
-    if (process.env.TARO_ENV === 'h5') {
-        return window.location.href
-    // eslint-disable-next-line no-else-return
-    } else {
-        console.log('next')
-        // next: 小程序
-        // let route = "";
-        // const pages = Taro.getCurrentPages();
-        // if (!pages.length) return
-        // const currPage = pages[pages.length - 1];
-        // route = "/" + currPage?.route;
-        // if (params) {
-        //     route = route + "?" + querystring(params);
-        // }
-        // if (needOriginParams) {
-        //     if (route.indexOf("?") > -1) {
-        //         route = route + "&" + querystring(currPage.options);
-        //     } else {
-        //         route = route + "?" + querystring(currPage.options);
-        //     }
-        // }
-        return ''
-    }
-}
-
 // 强制登录/跳转登录
-const doLogin = async () => {
-    const link = getPageLink();
-    if (process.env.TARO_ENV === "h5") {
-        router.to({
-            url: `https://plogin.m.lorem.com/user/login.action?appid=300&returnurl=${encodeURIComponent(link)}&source=done`
-        });
-    } else if (process.env.TARO_ENV === "weapp") {
-        if (process.env.BUILD_ENV === "wxabuild") {
-            router.to({
-                url: `/pages/my/account/index?returnUrl=${encodeURIComponent(
-                    link
-                )}&navBackType=navigateBack`,
-                complete: () => {
-                    setTimeout(() => {
-                        isDoLogin = false;
-                    }, 500);
-                }
-            });
+const doLogin = async (loginUrl) => {
+    if (!loginUrl) return
+    const link = router.getCurrLink();
+    console.log('doline', link)
+    router.redirect({
+        url: `${loginUrl}${encodeURIComponent(
+            link
+        )}`,
+        complete: () => {
+            setTimeout(() => {
+                isDoLogin = false;
+            }, 500);
         }
-    }
+    });
 };
 
 // Taro 提供了两个内置拦截器

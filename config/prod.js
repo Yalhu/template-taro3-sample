@@ -41,7 +41,7 @@ module.exports = {
                 // const pageName = page.replace(/pages\/(?<=)(.*)(?=)\/index/, '$1')
                 chain.plugin("htmlWebpackPlugin-" + page)
                     .use(new HtmlWebpackPlugin({
-                        title: "购买完成",
+                        title: "taro3跨端开发",
                         filename: page,
                         inject: 'body',
                         template: "src/index.html",

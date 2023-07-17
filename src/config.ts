@@ -80,12 +80,12 @@ export const ApiConfig = {
     baseURL: (() => {
         // 小程序线上接口
         if (process.env.TARO_ENV === "weapp" && accountInfo.miniProgram?.envVersion === "release") {
-            return "https://api.m.lorem.com";
+            return "https://api.m.com";
         }
         if (ApiEnv === "dev") {
-            return `${process.env.TARO_ENV === "weapp" ? 'https:' : ''}//beta-api.m.lorem.com`;
+            return `${process.env.TARO_ENV === "weapp" ? 'https:' : ''}//beta-api.m.com`;
         }
-        return `${process.env.TARO_ENV === "weapp" ? 'https:' : ''}//api.m.lorem.com`;
+        return `${process.env.TARO_ENV === "weapp" ? 'https:' : ''}//api.m.com`;
     })(),
     basePath: "/client.action",
     channel: "",

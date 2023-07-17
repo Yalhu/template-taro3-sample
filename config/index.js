@@ -56,7 +56,7 @@ const config = {
     alias: {
         "@": resolveAppPath("src"),
         "react-dom/client": "@tarojs/react",
-        '~': (process.env.BUILD_ENV === 'wxapp' || process.env.BUILD_ENV === 'wxabuild') ? resolveAppPath("..") : '../../comp'
+        // '~': (process.env.BUILD_ENV === 'wxapp' || process.env.BUILD_ENV === 'wxabuild') ? resolveAppPath("..") : '../../comp'
     },
     mini: {
         // baseLevel: 20,
@@ -100,6 +100,7 @@ const config = {
                 extensions: ["js", "mjs", "jsx", "ts", "tsx"],
                 eslintPath: require.resolve("eslint"),
                 context: resolveAppPath("src"),
+                fix: true,
                 cache: true,
                 cacheLocation: path.resolve(resolveAppPath("node_modules"), ".cache/.eslintcache"), // ESLint class options
                 cwd: resolveAppPath("."),
@@ -132,7 +133,7 @@ const config = {
     },
     h5: {
         publicPath: process.env.NODE_ENV === "development" ? `/${appName}` :
-            `//${process.env.BUILD_ENV === "beta" ? "beta-" : ""}lorem.cn/${appName}/`,
+            `//${process.env.BUILD_ENV === "beta" ? "beta-" : ""}m.com/${appName}/`,
         entry: {
             app: [path.join(appDirectory, 'src', 'app.config')],
         },
@@ -168,19 +169,15 @@ const config = {
             chunkFilename: "css/[name]_[contenthash:8].css"
         },
         htmlPluginOption: {
-            title: "购买完成",
+            title: "taro3跨端开发",
             inject: 'body',
-            // filename: "done.shtml",
+            // filename: "demo.shtml",
             minify: false,
         },
 
         router: {
             mode: "browser", // 默认使用 hash 模式
             basename: '/' + appName,
-            // customRoutes: {
-            //     "/pages/demo/index": "/buy/demo.shtml",
-            //     "/pages/done/index": "/buy/done.shtml",
-            // },
             customRoutes
         },
 
@@ -194,6 +191,7 @@ const config = {
                 eslintPath: require.resolve("eslint"),
                 context: resolveAppPath("src"),
                 cache: true,
+                fix: true,
                 cacheLocation: path.resolve(
                     resolveAppPath("node_modules"),
                     ".cache/.eslintcache"),

@@ -3,7 +3,7 @@
  */
 
 const track:TrackI = {
-    pv(pageId) {
+    pv(pageId, eparam?, others?) {
         this.send({ type: "pv", pageId });
     },
     expo(eid, eparam?, others?) {

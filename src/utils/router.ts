@@ -30,13 +30,6 @@ interface ToOtherMiniOptions extends Taro.navigateToMiniProgram.Option {
 //     return window;
 // }
 
-// const getKey = (): string => {
-//     const key = "__router_state_key__";
-//     const context = getContext();
-//     context[key] = context[key] || 0;
-//     return `${context[key]++}`;
-// }
-
 // const cache: Array<{ id: string; state?: Option["state"] }> = (() => {
 //     const key = "__router_state_cache__";
 //     const context = getContext();
@@ -47,6 +40,7 @@ interface ToOtherMiniOptions extends Taro.navigateToMiniProgram.Option {
 const goto = (() => {
     const execute = ({ url, state, params, method, title, webview, ...rest }: Taro.navigateTo.Option & Option) => {
         console.log("[Router]to.url:%s", url);
+        if (!url) return
         // next: 处理内部跳转
         if (process.env.TARO_ENV === "h5") {
             window.location.href = url;
@@ -82,12 +76,6 @@ const router = {
     //     if (process.env.TARO_ENV === "weapp" && /^(https?:)?\/\//i.test(url)) {
     //         target.protocol("https");
     //         return `${webview}?title=${encodeURIComponent(title || "")}&url=${encodeURIComponent(target.toString())}`;
-    //     }
-
-    //     if (state) {
-    //         const id = getKey();
-    //         target.setQuery("__state__", id);
-    //         cache.push({ id, state });
     //     }
 
     //     return target.toString();
@@ -195,44 +183,41 @@ const router = {
                     console.error(e);
                 }
             });
-        }
-
-        const params = Taro.getCurrentInstance().router?.params;
-        params && Object.keys(params).forEach((key) => {
-            const value = params[key];
-            if (!value || value === `${undefined}`) {
-                return;
-            }
-            try {
-                parameters[key] = value && decodeURIComponent(value).trim();
-            } catch (e) {
-                console.error(e);
-            }
-        });
-
-        /*
-        // 暂时不需要解析wxapp中pid参数。
-        const pid = params?.["__pid"];
-        if (pid) {
-            const state = bridge?.state?.get?.(pid);
-            state && Object.keys(state).forEach((key) => {
-                const value = state[key];
-                if (value === undefined || value === `${undefined}` || typeof value === "object") {
+        } else {
+            const params = Taro.getCurrentInstance().router?.params;
+            params && Object.keys(params).forEach((key) => {
+                const value = params[key];
+                if (!value || value === `${undefined}`) {
                     return;
                 }
                 try {
-                    parameters[key] = decodeURIComponent(`${value}`).trim();
+                    parameters[key] = value && decodeURIComponent(value).trim();
                 } catch (e) {
                     console.error(e);
                 }
             });
-        } */
-
+        }
         return parameters;
     },
     query: () => {
         const params = router.params();
         return Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`).join("&");
+    },
+    /**
+     * 返回当前页面链接
+     *  带参数。
+     */
+    getCurrLink() {
+        if (process.env.TARO_ENV === 'h5') {
+            return window.location.href
+        }
+        const pages = Taro.getCurrentPages();
+        const params = this.query()
+        // console.log('[Router]getCurrLink', pages, params)
+        if (!pages.length) return ''
+        const currPage = pages[pages.length - 1];
+        const route = currPage.route
+        return `${route}?${params}`
     }
 }
 

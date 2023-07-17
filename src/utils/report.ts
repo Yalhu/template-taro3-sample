@@ -1,6 +1,5 @@
 /**
  * biz 上报 - 监控。
- * bizreport上报接口描述： https://cf.lorem.com/pages/viewpage.action?pageId=104133692#rpds_bizreport
  * 非小程序：bizId|operationId|resultNo|source|message|traceId|perfTime
  */
 import Taro from "@tarojs/taro";
@@ -34,7 +33,7 @@ const biz = (() => {
                 return [item.biz, item.operation, item.result, source, item.message, undefined, item.duration].join("|");
             }).join(",");
 
-            contents && navigator.sendBeacon(`https://wq.lorem.com/webmonitor/collect/biz.json?contents=${contents}&t=${Date.now()}`);
+            contents && navigator.sendBeacon(`https://wq.m.com/webmonitor/collect.json?contents=${contents}&t=${Date.now()}`);
         });
     }
 
@@ -56,7 +55,7 @@ const biz = (() => {
             console.log('[report].execute', contents)
 
             if (process.env.TARO_ENV === "h5") {
-                const url = `https://wq.lorem.com/webmonitor/collect/biz.json?contents=${contents}&t=${Date.now()}`;
+                const url = `https://wq.m.com/webmonitor/collect.json?contents=${contents}&t=${Date.now()}`;
                 if (navigator.sendBeacon) {
                     navigator.sendBeacon(url);
                 } else {
@@ -73,17 +72,15 @@ const biz = (() => {
                 }
             } else {
                 const cookies = await cookie.getAll();
-                const pages = Taro.getCurrentPages() || [];
 
                 await Taro.request({
                     method: "POST",
                     header: {
                         'content-type': 'application/x-www-form-urlencoded',
                         'cookie': Object.keys(cookies).map(key => `${key}=${encodeURIComponent(cookies[key])}`).join(";"),
-                        'wqreferer': `http://wq.lorem.com/wxapp/${pages[pages.length - 1]?.route}`,
                         _noIntercept: true
                     },
-                    url: "https://wq.lorem.com/webmonitor/collect/biz.json",
+                    url: "https://wq.m.com/webmonitor/collect.json",
                     data: {
                         contents
                     }

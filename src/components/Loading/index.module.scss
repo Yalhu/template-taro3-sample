@@ -52,11 +52,9 @@
 }
 
 // loading 图片/动画自定义
-@keyframes loading {
-}
 @keyframes spin {
     to {
-        -webkit-transform: translateY(-96px);
+        // -webkit-transform: translateY(-96px);
         transform: translateY(-96px);
     }
 }

@@ -36,6 +36,7 @@
         "typeRoots": [
             "src/components/Recommend",
             "src/utils",
+            "src/types",
             "global.d.ts",
             "node_modules/@types"
         ]

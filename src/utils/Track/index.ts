@@ -1,11 +1,10 @@
 /**
- * 埋点。
+ * 埋点上报。
+ *  - 精简上报，保持h5一致。
  */
-// import { requestIdle } from '@/utils'
-
 const track:TrackI = {
-    pv(pageId) {
-        this.send({ type: "pv" });
+    pv(pageId, eparam?, others?) {
+        this.send({ type: "pv", pageId, eparam, others });
     },
     expo(eid, eparam?, others?) {
         this.send({ type: "exposure", eid, eparam, others });
@@ -17,9 +16,8 @@ const track:TrackI = {
         if (type !== "pv" && !eid) {
             return
         }
-        // const { /* pparam,  */abtest } = others || {};
         // post data ...
-        // const inst = instance;
+        console.log('[Track].send.')
     }
 
 }

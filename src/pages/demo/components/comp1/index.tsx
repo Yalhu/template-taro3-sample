@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { View, Text } from "@tarojs/components";
 
-import { comp_expo } from '@/common/js/ea-points'
+import { comp_expo } from '@/consts/ea-points/demo'
 
 import styles from "./index.less";
 

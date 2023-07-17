@@ -4,14 +4,12 @@ import { View, Text, Button } from "@tarojs/components";
 import { useEffect, useState, useCallback } from "react";
 
 import { getApiData } from "@/apis";
-import { demo_pv, demo_cli, demo_expo } from '@/common/js/ea-points'
+import { demo_pv, demo_cli, demo_expo } from '@/consts/ea-points/demo'
 // import ErrorBoundary from '@/components/ErrorBoundary'
 // import DataBoundary from '@/components/DataBoundary'
 // import Error from '@/components/Error'
 import { withCatcher, withData } from "@/hocs";
-import { useExpos } from "@/hooks";
-
-import { requestIdle, track } from "@/utils";
+import { usePv, useExpos } from "@/hooks";
 
 import Comp from './components/comp1'
 
@@ -40,14 +38,10 @@ function Demo(props) {
         setCount(count + 1)
     }, [count]);
 
+    /* pv埋点上报 */
+    usePv(demo_pv);
     // 曝光埋点
     useExpos([data]);
-    /* pv埋点上报 */
-    useEffect(() => {
-        requestIdle(() => {
-            track.pv(demo_pv);
-        })();
-    }, []);
 
     return (
         <View>
